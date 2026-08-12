@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Happy birthday, zizi 🌙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0d1c;
+    --bg2: #12172e;
+    --panel: #151b34;
+    --lavender: #b9a6ff;
+    --pink: #ff9fc7;
+    --green: #8fd6a0;
+    --gold: #ffd873;
+    --text: #f3f1fa;
+    --muted: #9a97b8;
+    --font-display: 'Baloo 2', sans-serif;
+    --font-body: 'Quicksand', sans-serif;
+    --font-hand: 'Caveat', cursive;
+  }
+
+  /* ============ WHERE TO PERSONALIZE THIS PAGE ============
+     1. Search "BESTIE_NAME" below and replace with her name.
+     2. Search "YOUR_NAME" below and replace with your name/signature.
+     3. Edit the letter text inside <section id="letter">.
+     4. Edit the flip-card reasons inside <section id="reasons">.
+     5. Edit the meme captions inside <section id="memes">.
+     6. To add real photos: replace a .photo-slot div's content with
+        <img src="yourphoto.jpg" alt="..."> (see commented example in
+        the photos section). Keep the .photo-slot class for the frame style.
+     =========================================================== */
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  #stars{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display:block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .wrap{
+    position: relative;
+    z-index: 2;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height: 100svh;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position: relative;
+    padding: 40px 20px;
+  }
+  .eyebrow{
+    font-family: var(--font-hand);
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+  }
+  .hero h1{
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 11vw, 3.4rem);
+    line-height: 1.05;
+    margin: 10px 0 14px;
+    background: linear-gradient(120deg, var(--lavender), var(--pink) 60%, var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero p{
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 320px;
+  }
+  .scroll-hint{
+    margin-top: 46px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(8px); }
+  }
+
+  .doodle{
+    position:absolute;
+    opacity: 0.9;
+    pointer-events:none;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{
+    position: relative;
+    padding: 70px 0 10px;
+  }
+  .tag{
+    font-family: var(--font-hand);
+    font-size: 1.3rem;
+    color: var(--green);
+    display:block;
+    margin-bottom: 6px;
+  }
+  h2{
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 22px;
+  }
+
+  /* ---------- LETTER ---------- */
+  .letter-card{
+    background: linear-gradient(160deg, var(--panel), var(--bg2));
+    border: 1px solid rgba(185,166,255,0.18);
+    border-radius: 22px;
+    padding: 28px 22px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    position: relative;
+  }
+  .letter-card::before{
+    content: "✦";
+    position:absolute;
+    top: -14px;
+    left: 24px;
+    background: var(--gold);
+    color: var(--bg);
+    width: 30px;
+    height:30px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 0.9rem;
+  }
+  .letter-card p{
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .letter-card p:last-child{ margin-bottom:0; }
+  .sign-off{
+    font-family: var(--font-hand);
+    font-size: 1.6rem;
+    color: var(--pink);
+    margin-top: 18px !important;
+  }
+
+  /* ---------- REASONS / FLIP CARDS ---------- */
+  .reason-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .flip-card{
+    perspective: 1000px;
+    height: 150px;
+  }
+  .flip-inner{
+    position:relative;
+    width:100%; height:100%;
+    text-align:center;
+    transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner{ transform: rotateY(180deg); }
+  .flip-front, .flip-back{
+    position:absolute;
+    inset:0;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 12px;
+    font-family: var(--font-display);
+  }
+  .flip-front{
+    background: rgba(185,166,255,0.08);
+    border: 1px dashed rgba(185,166,255,0.4);
+    color: var(--lavender);
+    font-size: 1.6rem;
+    flex-direction:column;
+    gap:6px;
+  }
+  .flip-front span.small{
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight:600;
+  }
+  .flip-back{
+    background: linear-gradient(150deg, rgba(255,159,199,0.18), rgba(143,214,160,0.14));
+    border: 1px solid rgba(255,159,199,0.35);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.4;
+    transform: rotateY(180deg);
+  }
+
+  /* ---------- MEMES ---------- */
+  .meme-grid{
+    display:flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .meme-card{
+    background: var(--panel);
+    border-radius: 18px;
+    overflow:hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .meme-visual{
+    height: 130px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 3.2rem;
+    background: radial-gradient(circle at 30% 20%, rgba(255,216,115,0.15), transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(255,159,199,0.15), transparent 60%),
+                var(--bg2);
+  }
+  .meme-caption{
+    padding: 12px 16px 16px;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+  .meme-caption b{ color: var(--text); }
+
+  /* ---------- PHOTOS ---------- */
+  .photo-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .photo-slot{
+    aspect-ratio: 1;
+    border-radius: 16px;
+    border: 2px dashed rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.03);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:6px;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-align:center;
+    padding: 10px;
+  }
+  .photo-slot span.icon{ font-size: 1.6rem; }
+  .photo-slot img{
+    width:100%; height:100%;
+    object-fit: cover;
+    border-radius: 14px;
+  }
+  .photo-slot.illustrated{
+    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--bg2);
+    padding: 0;
+    overflow: hidden;
+  }
+  .photo-slot.illustrated svg{
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  /* Example of adding a real photo instead of a placeholder:
+     <div class="photo-slot"><img src="us-at-the-beach.jpg" alt="us"></div>
+  */
+
+  /* ---------- SONG ---------- */
+  .song-card{
+    background: linear-gradient(160deg, rgba(185,166,255,0.1), rgba(255,159,199,0.08));
+    border: 1px solid rgba(185,166,255,0.25);
+    border-radius: 20px;
+    padding: 26px 22px;
+    text-align: center;
+  }
+  .song-card .note-icon{
+    font-size: 1.8rem;
+    display:block;
+    margin-bottom: 10px;
+  }
+  .song-card p{
+    color: var(--text);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+  .song-card .search-term{
+    font-family: var(--font-hand);
+    font-size: 1.5rem;
+    color: var(--gold);
+    display: block;
+    margin: 10px 0 18px;
+  }
+  .song-btn{
+    display:inline-block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--bg);
+    background: linear-gradient(120deg, var(--lavender), var(--pink));
+    border-radius: 999px;
+    padding: 13px 28px;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(185,166,255,0.25);
+  }
+
+  /* ---------- WISH BUTTON ---------- */
+  .wish-zone{
+    text-align:center;
+    padding: 60px 0 90px;
+  }
+  .wish-btn{
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--bg);
+    background: linear-gradient(120deg, var(--gold), var(--pink));
+    border: none;
+    border-radius: 999px;
+    padding: 16px 34px;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(255,159,199,0.25);
+    transition: transform 0.15s ease;
+  }
+  .wish-btn:active{ transform: scale(0.95); }
+  .wish-note{
+    margin-top: 14px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  footer{
+    text-align:center;
+    padding: 20px 0 50px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  footer .from{
+    display:block;
+    margin-top: 8px;
+    font-family: var(--font-hand);
+    font-size: 1.4rem;
+    color: var(--lavender);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="wrap">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <svg class="doodle" style="top:6%; left:-6%; width:120px;" viewBox="0 0 120 160" fill="none">
+      <path d="M10 150 C 20 100, 15 60, 40 20" stroke="#8fd6a0" stroke-width="3" stroke-linecap="round"/>
+      <path d="M40 20 C 50 30, 60 15, 55 0" stroke="#8fd6a0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M22 90 C 10 85, 5 70, 12 60" stroke="#8fd6a0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M30 130 C 45 128, 50 115, 45 105" stroke="#8fd6a0" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+    <svg class="doodle" style="bottom:4%; right:-8%; width:130px; transform:scaleX(-1);" viewBox="0 0 120 160" fill="none">
+      <path d="M10 150 C 20 100, 15 60, 40 20" stroke="#b9a6ff" stroke-width="3" stroke-linecap="round"/>
+      <path d="M40 20 C 50 30, 60 15, 55 0" stroke="#b9a6ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M22 90 C 10 85, 5 70, 12 60" stroke="#b9a6ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+
+    <span class="eyebrow">a little something from across the internet ✨</span>
+    <h1>happy birthday,<br>Zainab 🌙</h1>
+    <p>you're getting a whole website because a text felt way too small for you.</p>
+
+    <div class="scroll-hint">
+      <span>tap the stars, then scroll</span>
+      <span>↓</span>
+    </div>
+  </section>
+
+  <!-- ================= LETTER ================= -->
+  <section id="letter">
+    <span class="tag">for you, always</span>
+    <h2>a letter, from me to you</h2>
+    <div class="letter-card">
+      <p>كُلُّ عَامٍ وَأَنْت نَجْمُه مُضِيئَةٌ فِي حَيَاتِي وَفِي حَيَاةِ كُلِّ مَنْ يَعْرِفُك كُلِّ سَنَةٍ وَأَنْتَ الشَّمْسَ الَّتِي أَشْرَقَتْ حَيَاتِي مِنْ أَوَّلِ ثَانِيَة دَخَلَتْهَا
+</p>
+      <p>رُبَّمَا بِسَبَبِ عَجْزِ كَلِمَاتِي وَقُصُور قُدْرَتِي عَلَى التَّعْبِيرِ، لَا أَسْتَطِيعُ دَائِمًا، وَلَا بِالطَّرِيقَةِ الَّتِي تَلِيقُ بِمَكَانَتِك فِي قَلْبِي، أَنْ أَشْعَرك بِمَدَى تَقْدِيرِيّ لَك وَامْتِنَانِيّ لِوُجُودِك فِي حَيَاتِي. لَكِنَّنِي أُرِيدُك أَنْ تُعَلِّمِي أَنَّ لَك فِي قَلْبِي مَكَانَه عَزِيزَةٌ لَا تُخْتَزَلُ فِي الْكَلِمَاتِ، وَأَنَّ قِيمَتَك عِنْدِي أَكْبَرُ بِكَثِيرٍ مِمَّا تَسْتَطِيعُ عِبَارَاتِي الْمُتَوَاضِعَة أَنْ تَصِفَهُ.
+</p>
+      <p>كنت عاوزة اقولك ان بجد وجودك في  حياتي غيرني للأحسن عشان انتي احسن مثال للصحبة الصالحة في الدنيا. كانت كل ما الدنيا تضيق بيا او اخاف انك تبعدي عشان انا مش موجودة طول الوقت الاقيكي لسة جنبي.</p>
+      <p>احم عارفة كلامي متلغبط وكلو داخل في بعضو بس في الاخر اتمنى ان السنادي تكون سنة سعيدة عليكي تنسي فيها كل اللي وجعك وتعملي فيها احسن زكريات حياتك وربنا يوفقك في كل اعمالك ان شاء الله ويخليكي ليااا</p>
+      <p class="sign-off">happy birthday, love you endlessly 💗</p>
+    </div>
+  </section>
+
+  <!-- ================= REASONS (flip cards) ================= -->
+  <section id="reasons">
+    <span class="tag">tap to reveal</span>
+    <h2>ليه انتي احسن صاحبة في الدنيا؟</h2>
+    <div class="reason-grid">
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">🌱<span class="small">tap me</span></div>
+          <div class="flip-back"> بتبقي واقفة جنبي حتى وانتي في اصعب اوقات حياتك</div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">😭<span class="small">tap me</span></div>
+          <div class="flip-back">بتردي عالالف ريل اللي ببعتهملك 😭😭</div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">✨<span class="small">tap me</span></div>
+          <div class="flip-back"> بتسمعيني وانا بتكلم في اتفه موضوع على وجه الارض✨</div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">🐈<span class="small">tap me</span></div>
+          <div class="flip-back">عمرك  ما حسستيني اني تقيلة او اني رغاية</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  
+
+  <!-- ================= PHOTOS ================= -->
+  <section id="photos">
+    <span class="tag">proof we exist</span>
+    <h2>our little gallery</h2>
+    <div class="photo-grid">
+
+      <!-- 1. Distance: Giza to Yemen -->
+      <div class="photo-slot illustrated">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#12172e"/>
+          <circle cx="24" cy="30" r="1.3" fill="#f3f1fa" opacity="0.6"/>
+          <circle cx="260" cy="50" r="1.6" fill="#f3f1fa" opacity="0.5"/>
+          <circle cx="270" cy="230" r="1.3" fill="#f3f1fa" opacity="0.6"/>
+          <circle cx="40" cy="250" r="1.6" fill="#f3f1fa" opacity="0.5"/>
+          <circle cx="150" cy="20" r="1.2" fill="#f3f1fa" opacity="0.5"/>
+          <path d="M70 100 Q 150 60 220 150" stroke="#b9a6ff" stroke-width="2" stroke-dasharray="5 6" fill="none"/>
+          <circle cx="70" cy="100" r="7" fill="#8fd6a0"/>
+          <circle cx="220" cy="150" r="7" fill="#ff9fc7"/>
+          <text x="70" y="80" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="15" fill="#f3f1fa">Egypt</text>
+          <text x="220" y="180" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="15" fill="#f3f1fa">Yemen</text>
+          <text x="150" y="215" text-anchor="middle" font-family="Quicksand, sans-serif" font-size="12" fill="#9a97b8">~1,900 km apart</text>
+          <text x="150" y="235" text-anchor="middle" font-family="Caveat, cursive" font-size="18" fill="#ffd873">still not far enough to matter</text>
+        </svg>
+      </div>
+
+      <!-- 2. Always +4 unread messages -->
+      <div class="photo-slot illustrated">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#12172e"/>
+          <rect x="35" y="60" width="90" height="140" rx="18" fill="#151b34" stroke="#b9a6ff" stroke-opacity="0.3"/>
+          <rect x="175" y="60" width="90" height="140" rx="18" fill="#151b34" stroke="#ff9fc7" stroke-opacity="0.3"/>
+          <circle cx="80" cy="95" r="16" fill="#8fd6a0" opacity="0.8"/>
+          <circle cx="220" cy="95" r="16" fill="#ffd873" opacity="0.8"/>
+          <rect x="50" y="125" width="60" height="8" rx="4" fill="#9a97b8" opacity="0.5"/>
+          <rect x="50" y="140" width="45" height="8" rx="4" fill="#9a97b8" opacity="0.35"/>
+          <rect x="190" y="125" width="60" height="8" rx="4" fill="#9a97b8" opacity="0.5"/>
+          <rect x="190" y="140" width="45" height="8" rx="4" fill="#9a97b8" opacity="0.35"/>
+          <circle cx="112" cy="70" r="13" fill="#ff9fc7"/>
+          <text x="112" y="75" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="12" font-weight="700" fill="#0a0d1c">+4</text>
+          <circle cx="252" cy="70" r="13" fill="#ff9fc7"/>
+          <text x="252" y="75" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="12" font-weight="700" fill="#0a0d1c">+4</text>
+          <text x="150" y="240" text-anchor="middle" font-family="Caveat, cursive" font-size="19" fill="#f3f1fa">always +4, on both sides</text>
+          <text x="150" y="260" text-anchor="middle" font-family="Quicksand, sans-serif" font-size="11" fill="#9a97b8">no matter the time zone</text>
+        </svg>
+      </div>
+
+      <!-- 3. Meme -->
+      <div class="photo-slot illustrated">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#12172e"/>
+          <line x1="150" y1="20" x2="150" y2="280" stroke="#9a97b8" stroke-opacity="0.25" stroke-dasharray="4 5"/>
+          <circle cx="75" cy="200" r="20" fill="none" stroke="#8fd6a0" stroke-width="3"/>
+          <line x1="75" y1="220" x2="75" y2="250" stroke="#8fd6a0" stroke-width="3"/>
+          <line x1="75" y1="230" x2="60" y2="245" stroke="#8fd6a0" stroke-width="3"/>
+          <line x1="75" y1="230" x2="90" y2="245" stroke="#8fd6a0" stroke-width="3"/>
+          <path d="M50 90 h55 a8 8 0 0 1 8 8 v20 a8 8 0 0 1 -8 8 h-30 l-10 12 v-12 h-15 a8 8 0 0 1 -8 -8 v-20 a8 8 0 0 1 8 -8 z" fill="#151b34" stroke="#b9a6ff" stroke-width="2"/>
+          <text x="75" y="112" text-anchor="middle" font-family="Quicksand, sans-serif" font-size="10" fill="#f3f1fa">"you up?"</text>
+          <circle cx="220" cy="205" r="20" fill="none" stroke="#ff9fc7" stroke-width="3"/>
+          <line x1="220" y1="225" x2="220" y2="255" stroke="#ff9fc7" stroke-width="3"/>
+          <line x1="220" y1="235" x2="205" y2="250" stroke="#ff9fc7" stroke-width="3"/>
+          <line x1="220" y1="235" x2="235" y2="250" stroke="#ff9fc7" stroke-width="3"/>
+          <path d="M160 30 h120 a10 10 0 0 1 10 10 v55 a10 10 0 0 1 -10 10 h-70 l-14 16 v-16 h-36 a10 10 0 0 1 -10 -10 v-55 a10 10 0 0 1 10 -10 z" fill="#151b34" stroke="#ffd873" stroke-width="2"/>
+          <text x="220" y="55" text-anchor="middle" font-family="Quicksand, sans-serif" font-size="9" fill="#f3f1fa">"okay so basically</text>
+          <text x="220" y="68" text-anchor="middle" font-family="Quicksand, sans-serif" font-size="9" fill="#f3f1fa">what happened was</text>
+          <text x="220" y="81" text-anchor="middle" font-family="Quicksand, sans-serif" font-size="9" fill="#f3f1fa">a whole entire saga—"</text>
+          <text x="150" y="285" text-anchor="middle" font-family="Caveat, cursive" font-size="17" fill="#9a97b8">one text in, a novel out</text>
+        </svg>
+      </div>
+
+      <!-- 4. Friendship -->
+      <div class="photo-slot illustrated">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#12172e"/>
+          <circle cx="40" cy="35" r="1.3" fill="#f3f1fa" opacity="0.6"/>
+          <circle cx="260" cy="45" r="1.6" fill="#f3f1fa" opacity="0.5"/>
+          <circle cx="230" cy="25" r="1.2" fill="#f3f1fa" opacity="0.5"/>
+          <circle cx="60" cy="60" r="1.3" fill="#f3f1fa" opacity="0.5"/>
+          <circle cx="105" cy="150" r="22" fill="none" stroke="#8fd6a0" stroke-width="3"/>
+          <line x1="105" y1="172" x2="105" y2="210" stroke="#8fd6a0" stroke-width="3"/>
+          <line x1="105" y1="185" x2="130" y2="200" stroke="#8fd6a0" stroke-width="3"/>
+          <line x1="105" y1="210" x2="90" y2="240" stroke="#8fd6a0" stroke-width="3"/>
+          <line x1="105" y1="210" x2="118" y2="240" stroke="#8fd6a0" stroke-width="3"/>
+          <circle cx="195" cy="150" r="22" fill="none" stroke="#ff9fc7" stroke-width="3"/>
+          <line x1="195" y1="172" x2="195" y2="210" stroke="#ff9fc7" stroke-width="3"/>
+          <line x1="195" y1="185" x2="170" y2="200" stroke="#ff9fc7" stroke-width="3"/>
+          <line x1="195" y1="210" x2="180" y2="240" stroke="#ff9fc7" stroke-width="3"/>
+          <line x1="195" y1="210" x2="208" y2="240" stroke="#ff9fc7" stroke-width="3"/>
+          <path d="M150 175 l6 -6 a8 8 0 0 0 -12 -8 a8 8 0 0 0 -12 8 l6 6 l12 12 z" fill="#ffd873"/>
+          <text x="150" y="270" text-anchor="middle" font-family="Caveat, cursive" font-size="19" fill="#f3f1fa">besties, across the map</text>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SONG ================= -->
+  <section id="song">
+    <span class="tag">one more thing</span>
+    <h2>a song, just for you</h2>
+    <div class="song-card">
+      <span class="note-icon">🎵</span>
+      <p>go to <b>sendthesong.xyz</b> and search for:</p>
+      <span class="search-term">"zizi ⭐"</span>
+      <a class="song-btn" href="https://sendthesong.xyz/" target="_blank" rel="noopener">open sendthesong.xyz</a>
+    </div>
+  </section>
+
+  <!-- ================= WISH ================= -->
+  <section class="wish-zone">
+    <span class="tag">before you go</span>
+    <h2>make a wish 🌠</h2>
+    <button class="wish-btn" id="wishBtn">tap for stars</button>
+    <p class="wish-note">(close your eyes first, it's more official that way)</p>
+  </section>
+
+  <footer>
+    made with way too much love
+    <span class="from">— yours, mimi 💌</span>
+  </footer>
+
+</div>
+
+<script>
+  // ---------- Twinkling / touch-reactive starfield ----------
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let w, h, stars = [];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function makeStars(n){
+    stars = [];
+    for(let i=0; i<n; i++){
+      stars.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: Math.random()*1.4 + 0.4,
+        baseAlpha: Math.random()*0.5 + 0.3,
+        phase: Math.random()*Math.PI*2,
+        speed: Math.random()*0.02 + 0.008,
+        burst: 0
+      });
+    }
+  }
+  makeStars(120);
+
+  function draw(t){
+    ctx.clearRect(0,0,w,h);
+    for(const s of stars){
+      const twinkle = reduceMotion ? s.baseAlpha : s.baseAlpha + Math.sin(t*s.speed + s.phase)*0.25;
+      const alpha = Math.min(1, Math.max(0, twinkle + s.burst));
+      const radius = s.r + s.burst*2;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, radius, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(243,241,250,${alpha})`;
+      ctx.fill();
+      if(s.burst > 0) s.burst -= 0.02;
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  function sparkleNear(x, y){
+    for(const s of stars){
+      const d = Math.hypot(s.x-x, s.y-y);
+      if(d < 90){
+        s.burst = Math.max(s.burst, (1 - d/90));
+      }
+    }
+  }
+  window.addEventListener('pointerdown', (e) => sparkleNear(e.clientX, e.clientY));
+
+  // ---------- Wish button: star/leaf confetti ----------
+  const wishBtn = document.getElementById('wishBtn');
+  const emojiSet = ['✨','🌟','🪴','💫','🌱','💛'];
+
+  wishBtn.addEventListener('click', () => {
+    for(let i=0; i<26; i++){
+      const el = document.createElement('div');
+      el.textContent = emojiSet[Math.floor(Math.random()*emojiSet.length)];
+      el.style.position = 'fixed';
+      el.style.left = (window.innerWidth/2 + (Math.random()-0.5)*40) + 'px';
+      el.style.top = (wishBtn.getBoundingClientRect().top) + 'px';
+      el.style.fontSize = (14 + Math.random()*14) + 'px';
+      el.style.pointerEvents = 'none';
+      el.style.zIndex = 50;
+      el.style.transition = 'transform 1.4s cubic-bezier(.15,.8,.3,1), opacity 1.4s ease';
+      document.body.appendChild(el);
+
+      const dx = (Math.random()-0.5) * 260;
+      const dy = -(120 + Math.random()*220);
+      requestAnimationFrame(() => {
+        el.style.transform = `translate(${dx}px, ${dy}px) rotate(${(Math.random()-0.5)*180}deg)`;
+        el.style.opacity = '0';
+      });
+      setTimeout(() => el.remove(), 1500);
+    }
+  });
+</script>
+
+</body>
+</html>
